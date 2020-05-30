@@ -23,6 +23,12 @@ mongoose.connect(uri, {
 app.use(cors())
 app.use(express.json())
 
+const exerciseRouter = require('./routes/exercises')
+const userRouter = require('./routes/user')
+
+app.use('/exercises',exerciseRouter)
+app.use('/user',userRouter)
+
 app.listen(port,()=>{
     console.log(`Server is running on port: ${port}`)
 })
