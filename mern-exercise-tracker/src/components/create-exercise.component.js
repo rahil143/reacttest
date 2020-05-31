@@ -41,10 +41,10 @@ export default class CreateExercise extends Component {
         })
     }
 
-    onchangeDuration(e){
-        this.setState({
-            duration: e.target.value
-        })
+    onchangeDuration(e) {
+      this.setState({
+        duration: e.target.value
+      })
     }
 
     onchangeDate(date){
@@ -77,7 +77,7 @@ export default class CreateExercise extends Component {
                 required
                 className="form-control"
                 value={this.state.username}
-                onChange={this.onChangeUsername}>
+                onChange={this.onchangeUsername}>
                 {
                   this.state.users.map(function(user) {
                     return <option 
@@ -94,7 +94,7 @@ export default class CreateExercise extends Component {
                 required
                 className="form-control"
                 value={this.state.description}
-                onChange={this.onChangeDescription}
+                onChange={this.onchangeDescription}
                 />
           </div>
           <div className="form-group">
@@ -103,7 +103,7 @@ export default class CreateExercise extends Component {
                 type="text" 
                 className="form-control"
                 value={this.state.duration}
-                onChange={this.onChangeDuration}
+                onChange={this.onchangeDuration}
                 />
           </div>
           <div className="form-group">
@@ -111,7 +111,7 @@ export default class CreateExercise extends Component {
             <div>
               <DatePicker
                 selected={this.state.date}
-                onChange={this.onChangeDate}
+                onChange={this.onchangeDate}
               />
             </div>
           </div>
