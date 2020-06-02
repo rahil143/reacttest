@@ -22,7 +22,9 @@ router.route('/:id').delete((req,res)=>{
 router.route('/update/:id').post((req,res)=>{
     User.findById(req.params.id)
         .then(users =>{
-            users.username = req.body.username
+            users.name = req.body.name
+            users.email = req.body.email
+            users.password = req,body.password
             users.save()
                 .then(()=> res.json('User Updated'))
                 .catch(err=> res.status(400).json('Error: '+err))
@@ -30,8 +32,11 @@ router.route('/update/:id').post((req,res)=>{
 })
 
 router.route('/add').post((req,res)=>{
-    const username = req.body.username
-    const newUser = new User({username})
+    const name = req.body.name
+    const email = req.body.email
+    const password = req.body.password
+
+    const newUser = new User({name,email,password})
 
     newUser.save()
         .then(()=> res.json('User Added'))
