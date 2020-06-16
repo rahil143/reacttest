@@ -1,5 +1,6 @@
 const router = require('express').Router()
 let User = require('../models/user.model')
+const bcrypt = require('bcryptjs')
 
 router.route('/').get((req,res)=>{
     User.find()
@@ -23,10 +24,17 @@ router.route('/').post((req,res)=>{
             if(user) return res.status(500).json({message : 'User Email already Exits'})
             
             const newUser = new User({name,email,password})
-
-            newUser.save()
-                .then(()=> res.json('User Added'))
-                .catch(err=> res.status(400).json('Error: '+err))
+            
+            //Create Salt and Hash
+            bcrypt.genSalt(10,(err,salt)=>{
+                bcrypt.hash(newUser.password,salt,(err,hash)=>{
+                    if(err) res.status(400).json(('Error: '+ err))
+                    newUser.password=hash
+                    newUser.save()
+                    .then(()=> res.json('User Added'))
+                    .catch(err=> res.status(400).json('Error: '+ err))
+                })
+            })
         })
 })
 
@@ -52,18 +60,6 @@ router.route('/update/:id').post((req,res)=>{
                 .then(()=> res.json('User Updated'))
                 .catch(err=> res.status(400).json('Error: '+err))
         })
-})
-
-router.route('/add').post((req,res)=>{
-    const name = req.body.name
-    const email = req.body.email
-    const password = req.body.password
-
-    const newUser = new User({name,email,password})
-
-    newUser.save()
-        .then(()=> res.json('User Added'))
-        .catch(err=> res.status(400).json('Error: '+err))
 })
 
 module.exports = router;
