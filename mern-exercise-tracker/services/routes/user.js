@@ -7,6 +7,29 @@ router.route('/').get((req,res)=>{
         .catch(err => res.sendStatus(400).json('Error: '+err))
 })
 
+router.route('/').post((req,res)=>{
+    const name = req.body.name
+    const email = req.body.email
+    const password = req.body.password
+
+    //Validation
+    if( !name || !email || !password){
+        res.status(400).json({message : 'Please enter all fields'})
+    }
+
+    //Duplicate User Check
+    User.findOne({email})
+        .then(user=>{
+            if(user) return res.status(500).json({message : 'User Email already Exits'})
+            
+            const newUser = new User({name,email,password})
+
+            newUser.save()
+                .then(()=> res.json('User Added'))
+                .catch(err=> res.status(400).json('Error: '+err))
+        })
+})
+
 router.route('/:id').get((req,res)=>{
     User.findById(req.params.id)
     .then(users => res.json(users))
