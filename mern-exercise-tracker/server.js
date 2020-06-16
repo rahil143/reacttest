@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const conf = require('./default.json')
 
 require('dotenv').config()
 
@@ -8,7 +9,7 @@ const app = express()
 const port = process.env.PORT || 5000
 
 // Connecting to the database
-const uri = process.env.ATLAS_URI;
+const uri = conf.mongo_url;
 mongoose.Promise = global.Promise;
 mongoose.connect(uri, {
     useNewUrlParser: true,

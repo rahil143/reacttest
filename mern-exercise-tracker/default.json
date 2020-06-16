@@ -1,0 +1,5 @@
+{
+    "mongo_url":"mongodb+srv://exercise_tracker_user:FoKh1tpna53Beyjc@cluster0-cvvgb.mongodb.net/Exercise",
+    "jwtSecret":"sl_myjwtSecret"
+
+}
