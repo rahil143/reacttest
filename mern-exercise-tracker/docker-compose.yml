@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  app:
+    image: mern_stack
+    container_name: mern_test
+    ports:
+      - 3000:3000
+      - 5000:5000
+    restart: unless-stopped
